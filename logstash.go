@@ -45,6 +45,7 @@ func (a *LogstashAdapter) Stream(logstream chan *router.Message) {
 			ID:       m.Container.ID,
 			Image:    m.Container.Config.Image,
 			Hostname: m.Container.Config.Hostname,
+			Labels:   m.Container.Config.Labels,
 		}
 
 		var js []byte
@@ -76,10 +77,11 @@ func (a *LogstashAdapter) Stream(logstream chan *router.Message) {
 }
 
 type DockerInfo struct {
-	Name     string `json:"name"`
-	ID       string `json:"id"`
-	Image    string `json:"image"`
-	Hostname string `json:"hostname"`
+	Name     string            `json:"name"`
+	ID       string            `json:"id"`
+	Image    string            `json:"image"`
+	Hostname string            `json:"hostname"`
+	Labels   map[string]string `json:"labels",omitempty`
 }
 
 // LogstashMessage is a simple JSON input to Logstash.
